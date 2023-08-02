@@ -22,10 +22,11 @@ program
   .parse(process.argv);
 
 const platform = os.platform();
+console.log('Platform:', platform);
 const platformMap = {
   win32: 'uuu.exe',
   darwin: 'uuu_mac',
-  linux: 'uuu_aarch64', // Replace with 'uuu_armv7' if appropriate for your platform
+  linux: 'uuu', // Replace with 'uuu_armv7' if appropriate for your platform
 };
 
 function downloadFile(url, filename) {
@@ -84,6 +85,10 @@ function runUuuCommand(args) {
 }
 
 async function main() {
+  // Download uuu binary if not already present
+  await downloadUuuBinary();
+
+  // Rest of the code to handle user commands
   if (program.help) {
     runUuuCommand(['-h']);
   } else if (program.detailedHelp) {
